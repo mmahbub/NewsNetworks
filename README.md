@@ -1,14 +1,20 @@
 # NewsNetworks
 
 ## Data Setup
-The data we are working on is `NELA-GT-2020` and database file is `nela-gt-2020`. To prep the data
+The data we are working on is `NELA-GT-2020` which can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CHMUYZ). The database file we will use is `nela-gt-2020`. To prep the data
 we have to do a series of steps. These steps assume that you are in the directory of the database
 file, you have `sqlite3` installed, and `labels.csv` is present in the same directory.
 
 1. Launch the database: `sqlite3 nela-gt-2020.db`
-2. Load in the labels csv into a table:
-  a. Set csv mode: `.mode csv`
-  b. Load in the csv file: `.import labels.csv labels`
+2. Load in the labels csv into a table.
+3. Set csv mode: `.mode csv`
+4. Load in the csv file: `.import labels.csv all_labels`
+5. Since we want to only use sources that are either reliable (label=2) or unreliable (label=0), we are going to create another table with only those labels: `create table labels as select * from all_labels where label=0 or label=2;`
+6. Sanity check: `select label, count(*) from labels group by label;` should give you 97 for label 0 and 111 for label 2
+7. We want to ignore the missing data from March and April. So for convenience, we are going to work with data that was collected from 4/9/2020. This corresponds to the UTC time of 1586404800. We create another table to hold this filtered data: `create table data_sub as select * from newsdata where published_utc >= 1586404800`. This will take a while to run.
+8. Sanity check: `select count(*) from data_sub` should return 1384420. This will take a while to run.
+9. 
+  
 3. Since we are only dealing with sources which are either reliable (label=2) or unreliable (label=0)
 we are going to alder the `labels` table to reflect that
 

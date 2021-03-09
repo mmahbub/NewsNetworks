@@ -3,7 +3,7 @@
 ## Data Setup
 The data we are working on is `NELA-GT-2020` which can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/CHMUYZ). The database file we will use is `nela-gt-2020`. To prep the data
 we have to do a series of steps. These steps assume that you are in the directory of the database
-file, you have `sqlite3` installed, and `labels.csv` is present in the same directory.
+file, you have `sqlite3` installed, and `labels.csv` is present in the same directory. Note some of the steps below will take a while to run.
 
 1. Launch the database: `sqlite3 nela-gt-2020.db`
 2. Load in the labels csv into a table.
@@ -11,13 +11,11 @@ file, you have `sqlite3` installed, and `labels.csv` is present in the same dire
 4. Load in the csv file: `.import labels.csv all_labels`
 5. Since we want to only use sources that are either reliable (label=2) or unreliable (label=0), we are going to create another table with only those labels: `create table labels as select * from all_labels where label=0 or label=2;`
 6. Sanity check: `select label, count(*) from labels group by label;` should give you 97 for label 0 and 111 for label 2
-7. We want to ignore the missing data from March and April. So for convenience, we are going to work with data that was collected from 4/9/2020. This corresponds to the UTC time of 1586404800. We create another table to hold this filtered data: `create table data_sub as select * from newsdata where published_utc >= 1586404800`. This will take a while to run.
-8. Sanity check: `select count(*) from data_sub` should return 1384420. This will take a while to run.
-9. 
+7. We want to ignore the missing data from March and April. So for convenience, we are going to work with data that was collected from 4/9/2020. This corresponds to the UTC time of 1586404800. We create another table to hold this filtered data: `create table data_sub as select * from newsdata where published_utc >= 1586404800`.
+8. Sanity check: `select count(*) from data_sub` should return 1384420.
+9. Finally, we want the data with the correct sources (labels 0,2) and published at the correct times ( > 4/9). We can accomplish using an `inner join` to create our final data table: `create table data as select d.*, l.label from data_sub d inner join labels l on d.source=l.source;`
+10. Sanity check: `select count(*), count(distinct source) from data;` This should give `810814|199`. Note that the number of sources have gone to 199 from 208 (97 + 111). This is because there was some data missing from the labeled sources due us removing a fourth of the data (we don't consider the 1st 3 months).
   
-3. Since we are only dealing with sources which are either reliable (label=2) or unreliable (label=0)
-we are going to alder the `labels` table to reflect that
-
 ## Network Generation
 To generate a news outlet network using a NELA-GT database, simply run generate_network.py with command line arguments for: path to the nela database, path to write pair CSV file to, and path to save GML file to (GML file is the network file). Optionally, you can add the argument --initial_date in the form of YYYY-mm-dd string to start the network building on a specific date. Here is a more detailed look at the arguments:
 

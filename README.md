@@ -1,4 +1,18 @@
 # NewsNetworks
+
+## Data Setup
+The data we are working on is `NELA-GT-2020` and database file is `nela-gt-2020`. To prep the data
+we have to do a series of steps. These steps assume that you are in the directory of the database
+file, you have `sqlite3` installed, and `labels.csv` is present in the same directory.
+
+1. Launch the database: `sqlite3 nela-gt-2020.db`
+2. Load in the labels csv into a table:
+  a. Set csv mode: `.mode csv`
+  b. Load in the csv file: `.import labels.csv labels`
+3. Since we are only dealing with sources which are either reliable (label=2) or unreliable (label=0)
+we are going to alder the `labels` table to reflect that
+
+## Network Generation
 To generate a news outlet network using a NELA-GT database, simply run generate_network.py with command line arguments for: path to the nela database, path to write pair CSV file to, and path to save GML file to (GML file is the network file). Optionally, you can add the argument --initial_date in the form of YYYY-mm-dd string to start the network building on a specific date. Here is a more detailed look at the arguments:
 
 ```

@@ -273,12 +273,10 @@ def main():
   parser.add_argument("--input", type=str, help="Path to nela database")
   parser.add_argument("--output_pair_file", type=str, help="Path to write pair CSV file to")
   parser.add_argument("--output_network_file", type=str, help="Path to save GML file to")
-  # parser.add_arguement("--heuristics_off", type="store_true", help="Turn off heuristic functions (We strongly recommend not doing this)")
   parser.add_argument("--language", type=str, help="Language of the database")
   parser.add_argument("--initial_date", type=str, help="YYYY-mm-dd string for initial date of articles")
   parser.add_argument("--verbose", action="store_true", help="Verbose mode")
   args = parser.parse_args()
-
 
   # Define verbose print mode
   if args.verbose:
@@ -319,12 +317,9 @@ def main():
 
     pairs, simi = build_candidate_set(ids,sources,documents, stop_words=None)
     selected_pairs = compute_overlapping_pairs(pairs, published, sources)
-    if args.heuristics_off:
-      pass
-    else:
-      selected_pairs = aggregrator_heuristic(selected_pairs, sources)
-      selected_pairs = missing_data_heuristic(selected_pairs, documents_dict, sources)
-      selected_pairs = author_heuristic(selected_pairs, authors)
+    selected_pairs = aggregrator_heuristic(selected_pairs, sources)
+    selected_pairs = missing_data_heuristic(selected_pairs, documents_dict, sources)
+    selected_pairs = author_heuristic(selected_pairs, authors)
 
     all_pairs.extend(selected_pairs)
     with open(pair_file_path, "a") as fout:

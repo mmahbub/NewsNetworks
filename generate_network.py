@@ -20,7 +20,7 @@ def get_connection(database):
 
 def get_max_timestamp(conn):
   try:
-    sql_string = "SELECT max(published_utc) FROM newsdata"
+    sql_string = "SELECT max(published_utc) FROM data"
     cursor = conn.cursor()
     cursor.execute(sql_string)
     return int(cursor.fetchone()[0])
@@ -29,7 +29,7 @@ def get_max_timestamp(conn):
 
 def get_articles_per_source(conn):
   try:
-    sql_string = "SELECT source,count(id) FROM newsdata GROUP BY source"
+    sql_string = "SELECT source,count(id) FROM data GROUP BY source"
     cursor = conn.cursor()
     cursor.execute(sql_string)
     article_count = {str(r[0]):int(r[1]) for r in cursor.fetchall()}
@@ -41,7 +41,7 @@ def get_articles_per_source(conn):
 def get_documents(conn, start_timestamp, window_size=4):
   try:
     end_timestamp = int(start_timestamp) + window_size * 86400  # no. of seconds in a day
-    sql_string = "SELECT id,source,content,published_utc,author FROM newsdata \
+    sql_string = "SELECT id,source,content,published_utc,author FROM data \
     WHERE published_utc > %d AND published_utc < %d \
     ORDER BY published_utc" % (start_timestamp, end_timestamp)
     cursor = conn.cursor()
@@ -270,9 +270,9 @@ def build_network(all_pairs, article_count_per_source, path):
 
 def main():
   parser = argparse.ArgumentParser()
-  parser.add_argument("input", type=str, help="Path to nela database")
-  parser.add_argument("output_pair_file", type=str, help="Path to write pair CSV file to")
-  parser.add_argument("output_network_file", type=str, help="Path to save GML file to")
+  parser.add_argument("--input", type=str, help="Path to nela database")
+  parser.add_argument("--output_pair_file", type=str, help="Path to write pair CSV file to")
+  parser.add_argument("--output_network_file", type=str, help="Path to save GML file to")
   # parser.add_arguement("--heuristics_off", type="store_true", help="Turn off heuristic functions (We strongly recommend not doing this)")
   parser.add_argument("--language", type=str, help="Language of the database")
   parser.add_argument("--initial_date", type=str, help="YYYY-mm-dd string for initial date of articles")

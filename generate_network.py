@@ -265,9 +265,6 @@ def build_network(all_pairs, article_count_per_source, path):
 
   nx.write_gml(G, "%s" % path)
 
-
-
-
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("--input", type=str, help="Path to nela database")
@@ -277,15 +274,6 @@ def main():
   parser.add_argument("--initial_date", type=str, help="YYYY-mm-dd string for initial date of articles")
   parser.add_argument("--verbose", action="store_true", help="Verbose mode")
   args = parser.parse_args()
-
-  # Define verbose print mode
-  if args.verbose:
-    def verboseprint(*args):
-      for arg in args:
-        print(args)
-      print()
-  else:
-    verboseprint = lambda *args: None
 
   pair_file_path = args.output_pair_file
   conn = get_connection(args.input)
@@ -333,8 +321,6 @@ def main():
   article_count_per_source = get_articles_per_source(conn)
   print(article_count_per_source.keys())
   build_network(all_pairs, article_count_per_source, path=args.output_network_file)
-
-
 
 
 if __name__ == "__main__":

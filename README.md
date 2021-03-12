@@ -32,7 +32,8 @@ parser.add_argument("--verbose", action="store_true", help="Verbose mode")
 By default the network will normalize the edge weights by the number of total articles a source has published. 
 
 ## Command line code to generate network
-```./generate_network.py --input proj_dir/nela-gt-2020.db --output_pair_file out_dir/pair_file.csv --output_network_file out_dir/network.gml --initial_date 2020-04-09
+```
+./generate_network.py --input proj_dir/nela-gt-2020.db --output_pair_file out_dir/pair_file.csv --output_network_file out_dir/network.gml --initial_date 2020-04-09
 ```
 
 

@@ -10,11 +10,11 @@ file, you have `sqlite3` installed, and `labels.csv` is present in the same dire
 3. Set csv mode: `.mode csv`
 4. Load in the csv file: `.import labels.csv labels`
 5. **NOT NEEDED: Since we want to only use sources that are either reliable (label=0) or unreliable (label=2), we are going to create another table with only those labels: `create table labels as select * from all_labels where label=0 or label=2;`**
-6. Sanity check: `select label, count(*) from labels group by label;`
+6. Sanity check: `select label, count(*) from labels group by label;`. This should return 0,194 1,128 2,222
 7. We want to ignore the missing data from March and April. So for convenience, we are going to work with data that was collected from 4/9/2020. This corresponds to the UTC time of 1586404800. We create another table to hold this filtered data: `create table data_sub as select * from newsdata where published_utc >= 1586404800;`.
-8. Sanity check: `select count(*) from data_sub;`
+8. Sanity check: `select count(*) from data_sub;`. This should return 1384420.
 9. Finally, we want the data with the correct sources (labels 0,1,2) and published at the correct times ( > 4/9). We can accomplish using an `inner join` to create our final data table: `create table data as select d.*, l.label from data_sub d inner join labels l on d.source=l.source;`
-10. Sanity check: `select count(*), count(distinct source) from data;` (This should give `810814|199`. Note that the number of sources have gone to 199 from 208 (97 + 111). This is because there was some data missing from the labeled sources due us removing a fourth of the data (we don't consider the 1st 3 months).)
+10. Sanity check: `select count(*), count(distinct source) from data;` (This should give `1833873,324`. This is because there was some data missing from the labeled sources due us removing a fourth of the data (we don't consider the 1st 3 months).)
   
 ## Network Generation
 To generate a news outlet network using a NELA-GT database, simply run generate_network.py with command line arguments for: path to the nela database, path to write pair CSV file to, and path to save GML file to (GML file is the network file). Optionally, you can add the argument --initial_date in the form of YYYY-mm-dd string to start the network building on a specific date. Here is a more detailed look at the arguments:

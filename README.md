@@ -5,7 +5,7 @@ The data we are working on is `NELA-GT-2020` which can be found [here](https://d
 we have to do a series of steps. These steps assume that you are in the directory of the database
 file, you have `sqlite3` installed, and `labels.csv` is present in the same directory. Note some of the steps below will take a while to run.
 
-1. Launch the database: `sqlite3 nela-gt-2020.db`
+1. Launch the database: `sqlite3 nela-gt-2020.db` (1779127 rows)
 2. Load in the labels csv into a table.
 3. Set csv mode: `.mode csv`
 4. Load in the csv file: `.import labels.csv labels`

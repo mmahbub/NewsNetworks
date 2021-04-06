@@ -1,7 +1,7 @@
 # Adversarial NewsNetworks
 
 steps:
-  1. save unperturbed data (saved in **data** table) from database to a csv file: 
+  1. Export unperturbed data (saved in **data** table) from database to a csv file: 
   
       a) `.header on`
       
@@ -11,14 +11,14 @@ steps:
       
       d) `SELECT * FROM data;`
       
-  2. generate and save perturbed data: 
+  2. Qenerate and save perturbed data: 
       a) `python3 generate_attack.py --input data_path --percentage n`
       **Example:** `python3 generate_attack.py --input /home/75y/Documents/CSN/data --percentage 5`
       
   3. After executing step 2 with n = 5, we will have a csv file with perturbed data saved as `data_5.csv`
   4. Next launch the NELA database: `sqlite3 nela-gt-2020.db`
   5. Drop the `data` table: `DROP TABLE data;`
-  6. import the perturbed data to the database: 
+  6. Import the perturbed data `data_5.csv` to the database: 
   
       a) `.mode csv`
       

@@ -13,7 +13,7 @@
       
   2. Generate and save perturbed data: 
   
-      a) `python3 generate_attack.py --input data_folder_path --percentage n`
+      `python3 generate_attack.py --input data_folder_path --percentage n`
       
       **Example:** Say for n = 5, 
       

@@ -27,6 +27,8 @@
       a) `.mode csv`
       
       b) `.import data_5.csv data_5`
+   
+   Make sure `data_5.csv` is in the same folder as the NELA database.
       
   7. Generate network: 
       ```./generate_network.py --input proj_dir/nela-gt-2020.db --output_pair_file out_dir/pair_file_5.csv --output_network_file out_dir/network_5.gml --initial_date 2020-04-09```

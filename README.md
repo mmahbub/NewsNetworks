@@ -26,5 +26,5 @@ steps:
       
   7. Generate network: 
       ```./generate_network.py --input proj_dir/nela-gt-2020.db --output_pair_file out_dir/pair_file_5.csv --output_network_file out_dir/network_5.gml --initial_date 2020-04-09```
-  8. repeat steps 2-7 for n = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+  8. repeat steps 2-7 for n = 5, 10, 15, 20, 25, 30, 35, 40, 45, 50
   10. Look out for file names for pair_file and network_file.

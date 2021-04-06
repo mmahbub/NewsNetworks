@@ -7,7 +7,7 @@
       
       b) `.mode csv`
       
-      c) `.output data_folder_path/data.csv`
+      c) `.once data_folder_path/data.csv`
       
       d) `SELECT * FROM data;`
       

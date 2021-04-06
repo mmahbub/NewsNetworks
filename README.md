@@ -1,6 +1,6 @@
 # Adversarial NewsNetworks
 
-steps:
+**STEPS:**
   1. Export unperturbed data (saved in **data** table) from database to a csv file: 
   
       a) `.header on`

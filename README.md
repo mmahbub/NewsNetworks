@@ -11,7 +11,7 @@ steps:
       
       d) `SELECT * FROM data;`
       
-  2. Qenerate and save perturbed data: 
+  2. Generate and save perturbed data: 
       a) `python3 generate_attack.py --input data_folder_path --percentage n`
       **Example:** `python3 generate_attack.py --input /home/75y/Documents/CSN/data --percentage 5`
       

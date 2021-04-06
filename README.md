@@ -2,9 +2,13 @@
 
 steps:
   1. save unperturbed data (saved in **data** table) from database to a csv file: 
+  
       a) `.header on`
+      
       b) `.mode csv`
+      
       c) `.output data_folder_path/data.csv`
+      
       d) `SELECT * FROM data;`
       
   2. generate and save perturbed data: 
@@ -15,8 +19,11 @@ steps:
   4. Next launch the NELA database: `sqlite3 nela-gt-2020.db`
   5. Drop the `data` table: `DROP TABLE data;`
   6. import the perturbed data to the database: 
+  
       a) `.mode csv`
+      
       b) `.import data_5.csv data_5`
+      
   7. Generate network: 
       ```./generate_network.py --input proj_dir/nela-gt-2020.db --output_pair_file out_dir/pair_file_5.csv --output_network_file out_dir/network_5.gml --initial_date 2020-04-09```
   8. repeat steps 2-7 for n = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]

@@ -12,7 +12,7 @@ steps:
       d) `SELECT * FROM data;`
       
   2. Qenerate and save perturbed data: 
-      a) `python3 generate_attack.py --input data_path --percentage n`
+      a) `python3 generate_attack.py --input data_folder_path --percentage n`
       **Example:** `python3 generate_attack.py --input /home/75y/Documents/CSN/data --percentage 5`
       
   3. After executing step 2 with n = 5, we will have a csv file with perturbed data saved as `data_5.csv`

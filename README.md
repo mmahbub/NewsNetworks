@@ -26,7 +26,7 @@
   
       a) `.mode csv`
       
-      b) `.import data_5.csv data_5`
+      b) `.import data_5.csv data`
    
    Make sure `data_5.csv` is in the same folder as the NELA database.
       
